@@ -58,12 +58,19 @@ export LD_PRELOAD=/app/vendor/pcre/lib/libpcre.so.1
 echo "-----> Setup OCamlbrew"
 source /app/vendor/ocamlbrew/ocaml-4.00.1/etc/ocamlbrew.bashrc
 
-# configure
+# opam
 if [ -f setup-opam ]; then
+  cache=$CACHE_DIR/opam.tgz
+  dir=/app/vendor/ocamlbrew/ocaml-4.00.1/.opam/
+  if [ -f $cache ]; then
+    echo "-----> Restore from cache"
+    tar xzf $cache -C $dir
+  fi
   echo "-----> Install libraries via OPAM"
   ./setup-opam 2>&1 | indent
+  echo "-----> Caching opam libraries"
+  tar cvf $cache $dir/system
 fi
-
 
 # configure
 if [ -f configure ]; then
