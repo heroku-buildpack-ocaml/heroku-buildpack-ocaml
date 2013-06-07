@@ -67,7 +67,7 @@ source /app/vendor/ocamlbrew/ocaml-4.00.1/etc/ocamlbrew.bashrc
 # opam
 if [ -f setup-opam ]; then
   cache=$CACHE_DIR/opam.tgz
-  dir=/app/vendor/opamlib
+  dir=/app/vendor/ocamlbrew/opamlib
   if [ -f $cache ]; then
     echo "-----> Restore from cache"
     tar xzf $cache -C $dir || echo "cannot restore"
