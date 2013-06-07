@@ -50,7 +50,7 @@ cd $BUILD_DIR
 
 if [ -f .no_cache ]; then
   echo "-----> Cleanup cache"
-  rm -rf $cache
+  rm -rf $CACHE_DIR
 fi
 
 echo "-----> Fetching runtime"
