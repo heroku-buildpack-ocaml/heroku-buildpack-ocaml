@@ -47,6 +47,12 @@ function copy(){
 }
 
 cd $BUILD_DIR
+
+if [ -f .no_cache ]; then
+  echo "-----> Cleanup cache"
+  rm -rf $cache
+fi
+
 echo "-----> Fetching runtime"
 for url in ${urls[@]}; do
   setup /app/vendor/$(basename $url .tgz | sed 's/-[^-]*$//') $url
