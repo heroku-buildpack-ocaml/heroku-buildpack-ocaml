@@ -91,4 +91,4 @@ echo "-----> Install runtime environment"
 copy vendor/pcre/{share,lib}
 copy vendor/gdbm/lib
 copy vendor/ocamlbrew/ocaml-4.00.1/{share,lib}
-copy vendor/opamlib/system/lib
+copy vendor/ocamlbrew/opamlib/system/lib
