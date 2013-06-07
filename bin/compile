@@ -26,7 +26,7 @@ function setup() {
 
   mkdir -p $dir
   echo "fetching $url"
-  curl  $url -s -o - | tar xzf - -C $dir
+  curl -L $url -s -o - | tar xzf - -C $dir
 }
 
 function copy(){
