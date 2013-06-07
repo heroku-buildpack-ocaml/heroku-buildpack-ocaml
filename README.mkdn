@@ -13,7 +13,7 @@ Usage
 
 Create Heroku app with custom buildpack:
 
-    $ heroku create --bulidpack https://github.com/mzp/heroku-buildpack-ocaml
+    $ heroku create --buildpack https://github.com/mzp/heroku-buildpack-ocaml
     # or
     $ heroku config:set BUILDPACK_URL=https://github.com/mzp/heroku-buildpack-ocaml
 
