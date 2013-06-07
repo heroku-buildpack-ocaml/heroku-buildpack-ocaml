@@ -61,7 +61,7 @@ source /app/vendor/ocamlbrew/ocaml-4.00.1/etc/ocamlbrew.bashrc
 # configure
 if [ -f setup-opam ]; then
   echo "-----> Install libraries via OPAM"
-  ./setup-opam 2>&1 | ident
+  ./setup-opam 2>&1 | indent
 fi
 
 
