@@ -49,7 +49,7 @@ function copy(){
 cd $BUILD_DIR
 echo "-----> Fetching runtime"
 for url in ${urls[@]}; do
-  setup /app/vendor/$(basename $url .tgz) $url
+  setup /app/vendor/$(basename $url .tgz | sed 's/-[^-]*$//') $url
 done
 
 echo "-----> Setup LD_PRELOAD"
@@ -73,5 +73,5 @@ make all 2>&1 | indent
 
 echo "-----> Install runtime environment"
 copy vendor/pcre/{share,lib}
-copy vendor/gdbm-1.10/lib
+copy vendor/gdbm/lib
 copy vendor/ocamlbrew/ocaml-4.00.1/{share,lib}
