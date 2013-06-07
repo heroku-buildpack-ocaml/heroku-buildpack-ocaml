@@ -7,7 +7,6 @@ Available libraries
 ---------------------
 
  * OCaml 4.00.1
- * ocamlnet 3.6.3
 
 Usage
 ---------------------
