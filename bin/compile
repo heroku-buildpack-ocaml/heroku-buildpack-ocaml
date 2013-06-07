@@ -29,8 +29,6 @@ function setup() {
   mkdir -p $dir
   mkdir -p $CACHE_DIR/cache
 
-  find $CACHE_DIR
-  echo $cache
   if [ -f $cache ]; then
     echo "use from $cache"
     tar xvf $cache -C $dir
