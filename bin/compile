@@ -31,7 +31,7 @@ function setup() {
 
   if [ -f $cache ]; then
     echo "use from $cache"
-    tar xvf $cache -C $dir
+    tar xzf $cache -C $dir
   else
     echo "fetching $url"
     curl -L $url -s -o - | tee $cache | tar xzf - -C $dir
