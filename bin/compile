@@ -58,14 +58,17 @@ export LD_PRELOAD=/app/vendor/pcre/lib/libpcre.so.1
 echo "-----> Setup OCamlbrew"
 source /app/vendor/ocamlbrew/ocaml-4.00.1/etc/ocamlbrew.bashrc
 
-# restore OPAM directory
+# configure
+if [ -f setup-opam ]; then
+  echo "-----> Install libraries via OPAM"
+  ./setup-opam 2>&1 | ident
+fi
+
 
 # configure
 if [ -f configure ]; then
   echo "-----> Configuring"
-
-  mkdir -p $BUILD_DIR/target
-  ./configure --prefix=$BUILD_DIR/target 2>&1 | indent
+  ./configure 2>&1 | indent
 fi
 
 echo "-----> Compiling with Make"
