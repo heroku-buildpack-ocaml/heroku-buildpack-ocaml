@@ -73,7 +73,7 @@ if [ -f setup-opam ]; then
     tar xzf $cache -C $dir || echo "cannot restore"
   fi
   echo "-----> Install libraries via OPAM"
-  ./setup-opam 2>&1 | indent
+  ./setup-opam $CACHE_DIR/cache 2>&1 | indent
   echo "-----> Caching opam libraries"
   (cd $dir && tar czf $cache *)
 fi
