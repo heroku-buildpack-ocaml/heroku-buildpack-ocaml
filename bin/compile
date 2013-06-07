@@ -24,9 +24,19 @@ function setup() {
   dir=$1
   url=$2
 
+  cache=$CACHE_DIR/cache/$(basename $url)
+
   mkdir -p $dir
-  echo "fetching $url"
-  curl -L $url -s -o - | tar xzf - -C $dir
+  mkdir -p $CACHE_DIR/cache
+
+  echo $cache
+  if [ -f $cache ]; then
+    echo "use from $cache"
+    tar xvf $cache -C $dir
+  else
+    echo "fetching $url"
+    curl -L $url -s -o - | tee $cache | tar xzf - -C $dir
+  fi
 }
 
 function copy(){
@@ -49,6 +59,8 @@ export LD_PRELOAD=/app/vendor/pcre/lib/libpcre.so.1
 echo "-----> Setup OCamlbrew"
 source /app/vendor/ocamlbrew/ocaml-4.00.1/etc/ocamlbrew.bashrc
 
+# restore OPAM directory
+
 # configure
 if [ -f configure ]; then
   echo "-----> Configuring"
@@ -61,5 +73,6 @@ echo "-----> Compiling with Make"
 make all 2>&1 | indent
 
 echo "-----> Install runtime environment"
+ls vendor
 copy vendor/*/{share,lib}
 copy vendor/ocamlbrew/*/{share,lib}
