@@ -6,7 +6,7 @@ set -o pipefail
 urls=(
 https://github.com/heroku-buildpack-ocaml/build-scripts/raw/master/files/gdbm-1.10.tgz
 https://github.com/heroku-buildpack-ocaml/build-scripts/raw/master/files/pcre.tgz
-https://github.com/heroku-buildpack-ocaml/build-scripts/raw/master/files/ocamlbrew.tgz
+https://codefirst.org/mzp/ocamlbrew.tgz
 )
 
 BUILD_DIR=$1
