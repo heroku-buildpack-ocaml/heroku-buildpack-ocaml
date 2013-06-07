@@ -24,12 +24,12 @@ function setup() {
   dir=$1
   url=$2
 
-  find $CACHE_DIR
   cache=$CACHE_DIR/cache/$(basename $url)
 
   mkdir -p $dir
   mkdir -p $CACHE_DIR/cache
 
+  find $CACHE_DIR
   echo $cache
   if [ -f $cache ]; then
     echo "use from $cache"
