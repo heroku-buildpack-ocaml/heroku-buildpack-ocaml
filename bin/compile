@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir>
+
+set -e
+set -o pipefail
+urls=(
+https://github.com/heroku-buildpack-ocaml/build-scripts/raw/master/files/gdbm-1.10.tgz
+https://github.com/heroku-buildpack-ocaml/build-scripts/raw/master/files/pcre.tgz
+https://github.com/heroku-buildpack-ocaml/build-scripts/raw/master/files/ocamlbrew.tgz
+)
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+function indent() {
+  c='s/^/       /'
+  case $(uname) in
+    Darwin) sed -l "$c";;
+    *)      sed -u "$c";;
+  esac
+}
+
+function setup() {
+  dir=$1
+  url=$2
+
+  mkdir -p $dir
+  echo "fetching $url"
+  curl  $url -s -o - | tar xzf - -C $dir
+}
+
+function copy(){
+  for name in $@; do
+    echo "install $name"
+    mkdir -p $(dirname $BUILD_DIR/$name)
+    cp -r /app/$name $BUILD_DIR/$name
+  done
+}
+
+cd $BUILD_DIR
+echo "-----> Fetching runtime"
+for url in ${urls[@]}; do
+  setup /app/vendor/$(basename $url .tgz) $url
+done
+
+echo "-----> Setup LD_PRELOAD"
+export LD_PRELOAD=/app/vendor/pcre/lib/libpcre.so.1
+
+echo "-----> Setup OCamlbrew"
+source /app/vendor/ocamlbrew/ocaml-4.00.1/etc/ocamlbrew.bashrc
+
+# configure
+if [ -f configure ]; then
+  echo "-----> Configuring"
+
+  mkdir -p $BUILD_DIR/target
+  ./configure --prefix=$BUILD_DIR/target 2>&1 | indent
+fi
+
+echo "-----> Compiling with Make"
+make all 2>&1 | indent
+
+echo "-----> Install runtime environment"
+copy vendor/*/{share,lib}
+copy vendor/ocamlbrew/*/{share,lib}

@@ -1,0 +1,55 @@
+Buildpack for OCaml
+=====================
+
+This is custom buid pack to run OCaml apps on Heroku.
+
+Available libraries
+---------------------
+
+ * OCaml 4.00.1
+ * ocamlnet 3.6.3
+
+Usage
+---------------------
+
+Create Heroku app with custom buildpack:
+
+    $ heroku create --bulidpack https://github.com/mzp/heroku-buildpack-ocaml
+    # or
+    $ heroku config:set BUILDPACK_URL=https://github.com/mzp/heroku-buildpack-ocaml
+
+Create OCaml app and commit:
+
+    $ oasis quickstart
+    ......
+    $ git commit -am "first commit"
+
+Create `Procfile` and commit:
+
+    # e.g. ./target/bin/main is your server, and it receives port number as first argument
+    $ echo 'web: ./target/bin/main $PORT' > Procfile
+
+Push to heroku:
+
+    $ git push heroku master
+
+And setup web process num:
+
+    $ heroku ps:scale web=1
+
+Deploy phase
+---------------------
+
+Following commands is executed each deploy time:
+
+    # (if exists)
+    $ ./configure --prefix=./target
+    $ make
+    $ make install
+
+See also
+---------------------
+
+ * https://github.com/mzp/heroku-buildpack-ocaml-recipe
+ * https://devcenter.heroku.com/articles/buildpacks
+
