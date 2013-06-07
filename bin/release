@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 # bin/release <build-dir>
 
-echo "--- {}"
+cat <<EOF
+---
+config_vars:
+  LD_PRELOAD: "/app/vendor/pcre/lib/libpcre.so.1 /app/vendor/gdbm/lib/libgdbm_compat.so.4"
+EOF
