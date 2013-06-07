@@ -74,5 +74,6 @@ echo "-----> Compiling with Make"
 make all 2>&1 | indent
 
 echo "-----> Install runtime environment"
-copy vendor/{pcre,gdm-1.10}/{share,lib}
+copy vendor/pcre/{share,lib}
+copy vendor/gdbm-1.10/lib
 copy vendor/ocamlbrew/ocaml-4.00.1/{share,lib}
