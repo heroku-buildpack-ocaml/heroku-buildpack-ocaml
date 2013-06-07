@@ -64,7 +64,7 @@ if [ -f setup-opam ]; then
   dir=/app/vendor/ocamlbrew/ocaml-4.00.1/.opam/
   if [ -f $cache ]; then
     echo "-----> Restore from cache"
-    tar xzf $cache -C $dir
+    tar xzf $cache -C $dir || echo "cannot restore"
   fi
   echo "-----> Install libraries via OPAM"
   ./setup-opam 2>&1 | indent
