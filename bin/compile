@@ -69,7 +69,7 @@ if [ -f setup-opam ]; then
   echo "-----> Install libraries via OPAM"
   ./setup-opam 2>&1 | indent
   echo "-----> Caching opam libraries"
-  tar czf $cache $dir/system
+  (cd $dir && tar czf $cache system)
 fi
 
 # configure
